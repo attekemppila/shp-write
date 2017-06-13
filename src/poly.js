@@ -8,7 +8,6 @@ module.exports.write = function writePoints(geometries, extent, shpView, shxView
         shxOffset = 100;
 
     geometries.forEach(writePolyLine);
-    
 
     function writePolyLine(coordinates, i) {
 
