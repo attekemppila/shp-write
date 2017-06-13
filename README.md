@@ -28,7 +28,7 @@ Or in a browser
 ```js
 var shpwrite = require('shp-write');
 
-// (optional) set names for zip file, zipped folder and feature types
+// set the projection string and names for zip file, zipped folder and feature types
 var options = {
     file: 'myshapes'
     folder: 'myshapes',
@@ -36,7 +36,8 @@ var options = {
         point: 'mypoints',
         polygon: 'mypolygons',
         polyline: 'mylines'
-    }
+    },
+    prj: 'wkt string' (required)
 }
 // a GeoJSON bridge for features
 shpwrite.download({

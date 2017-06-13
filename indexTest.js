@@ -75,11 +75,12 @@ require('./src/download')({
         }
     ]
 }, {
-    fileName: 'shapefiles',
+    file: 'shapefiles',
     folder: 'shapefiles',
     types: {
         point: 'points',
         polygon: 'polygons',
         polyline: 'lines'
-    }
+    },
+    prj: 'GEOGCS["GCS_WGS_1984",DATUM["D_WGS_1984",SPHEROID["WGS_1984",6378137,298.257223563]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]]'
 });

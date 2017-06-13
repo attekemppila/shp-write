@@ -1,6 +1,5 @@
 var types = require('./types'),
     dbf = require('dbf'),
-    prj = require('./prj'),
     ext = require('./extent'),
     getFields = require('./fields'),
     assert = require('assert'),
@@ -18,7 +17,7 @@ var recordHeaderLength = 8;
 module.exports = write;
 
 // Low-level writing interface
-function write(rows, geometry_type, geometries, callback) {
+function write(rows, geometry_type, geometries, prj, callback) {
 
     var TYPE = types.geometries[geometry_type],
         writer = writers[TYPE],

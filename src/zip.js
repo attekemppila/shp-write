@@ -1,6 +1,5 @@
 var write = require('./write'),
     geojson = require('./geojson'),
-    prj = require('./prj'),
     JSZip = require('jszip');
 
 module.exports = function(gj, options) {
@@ -18,12 +17,13 @@ module.exports = function(gj, options) {
                 l.type,
                 // geometries
                 l.geometries,
+                options.prj,
                 function(err, files) {
                     var fileName = options && options.types[l.type.toLowerCase()] ? options.types[l.type.toLowerCase()] : l.type;
                     layers.file(fileName + '.shp', files.shp.buffer, { binary: true });
                     layers.file(fileName + '.shx', files.shx.buffer, { binary: true });
                     layers.file(fileName + '.dbf', files.dbf.buffer, { binary: true });
-                    layers.file(fileName + '.prj', prj);
+                    layers.file(fileName + '.prj', options.prj);
                 });
         }
     });
