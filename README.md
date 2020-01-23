@@ -80,6 +80,24 @@ shpwrite.download({
 Given a [GeoJSON](http://geojson.org/) FeatureCollection as an object,
 converts convertible features into Shapefiles and triggers a download.
 
+### `downloadMany(geojsonArray)`
+
+Given array of a [GeoJSON](http://geojson.org/) FeatureCollections,
+converts convertible features into Shapefiles and triggers a download.
+Supports only polygons.
+
+```js
+var options = {
+    file: 'myshapes'
+    folder: 'myshapes',
+    prj: 'wkt string' (required),
+    layerNames: [names_of_featureCollections] // same order that in featureCollections. these names are generated to shapefilenames
+}
+
+shpwrite.downloadMany(featureCollections, options);
+
+```
+
 ### `write(data, geometrytype, geometries, callback)`
 
 Given data, an array of objects for each row of data, geometry, the OGC standard
