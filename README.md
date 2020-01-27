@@ -75,23 +75,32 @@ shpwrite.download({
 
 ## API
 
-### `download(geojson)`
+### `download(geojson, options)`
 
 Given a [GeoJSON](http://geojson.org/) FeatureCollection as an object,
 converts convertible features into Shapefiles and triggers a download.
 
-### `downloadMany(geojsonArray)`
+### `downloadMany(geojsonCollections, options)`
 
-Given array of a [GeoJSON](http://geojson.org/) FeatureCollections,
+Given object of a [GeoJSON](http://geojson.org/) FeatureCollections,
 converts convertible features into Shapefiles and triggers a download.
 Supports only polygons.
 
 ```js
+var featureCollections = {
+    "polygonLayer1": {
+        "type": "FeatureCollection",
+        "features": [...]
+    },
+    "polygonLayer2": {
+        "type": "FeatureCollection",
+        "features": [...]
+    }
+}
 var options = {
     file: 'myshapes'
     folder: 'myshapes',
-    prj: 'wkt string' (required),
-    layerNames: [names_of_featureCollections] // same order that in featureCollections. these names are generated to shapefilenames
+    prj: 'wkt string' (required)
 }
 
 shpwrite.downloadMany(featureCollections, options);

@@ -85,8 +85,8 @@ require('./src/download')({
     prj: 'GEOGCS["GCS_WGS_1984",DATUM["D_WGS_1984",SPHEROID["WGS_1984",6378137,298.257223563]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]]'
 });
 
-require('./src/downloadMany')([
-    {
+require('./src/downloadMany')({
+    "polygonLayer1": {
         "type": "FeatureCollection",
         "features": [{
             "type": "Feature",
@@ -134,7 +134,7 @@ require('./src/downloadMany')([
             }
         }]
     },
-    {
+    "polygonLayer2": {
         "type": "FeatureCollection",
         "features": [{
             "type": "Feature",
@@ -182,10 +182,71 @@ require('./src/downloadMany')([
             }
         }]
     }
-],
+},
 {
     file: 'shapefilesMany',
     folder: 'shapefilesMany',
-    prj: 'GEOGCS["GCS_WGS_1984",DATUM["D_WGS_1984",SPHEROID["WGS_1984",6378137,298.257223563]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]]',
-    layerNames: ['layer1', 'layer2']
+    prj: 'GEOGCS["GCS_WGS_1984",DATUM["D_WGS_1984",SPHEROID["WGS_1984",6378137,298.257223563]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]]'
 });
+
+try {
+    require('./src/downloadMany')({
+        "pointLayer": {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "properties": {},
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            24.925403594970703,
+                            60.171830205844614
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    {
+        file: 'shapefiles',
+        folder: 'shapefiles',
+        prj: 'GEOGCS["GCS_WGS_1984",DATUM["D_WGS_1984",SPHEROID["WGS_1984",6378137,298.257223563]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]]'
+    });
+} catch(e) {
+    console.error(e); // downloadMany should throw error for points
+}
+
+try {
+    require('./src/downloadMany')({
+        "lineLayer": {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "properties": {},
+                    "geometry": {
+                        "type": "LineString",
+                        "coordinates": [
+                            [
+                                24.920940399169922,
+                                60.17977000114811
+                            ],
+                            [
+                                24.953556060791016,
+                                60.17486121440947
+                            ]
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    {
+        file: 'shapefiles',
+        folder: 'shapefiles',
+        prj: 'GEOGCS["GCS_WGS_1984",DATUM["D_WGS_1984",SPHEROID["WGS_1984",6378137,298.257223563]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]]'
+    });
+} catch(e) {
+    console.error(e); // downloadMany should throw error for lines
+}

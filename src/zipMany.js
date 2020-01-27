@@ -2,32 +2,37 @@ var write = require('./write'),
     geojson = require('./geojson'),
     JSZip = require('jszip');
 
-module.exports = function(gjArray, options) {
+module.exports = function(gjCollections, options) {
 
     var zip = new JSZip(),
         layers = zip.folder(options && options.folder ? options.folder : 'layers');
 
-    gjArray.forEach(function(gj, layerIndex) {
-      [geojson.polygon(gj)]
-          .forEach(function(l) {
-          if (l.geometries.length && l.geometries[0].length) {
-              write(
-                  // field definitions
-                  l.properties,
-                  // geometry type
-                  l.type,
-                  // geometries
-                  l.geometries,
-                  options.prj,
-                  function(err, files) {
-                      var fileName = options && options.layerNames ? options.layerNames[layerIndex] : l.type;
-                      layers.file(fileName + '.shp', files.shp.buffer, { binary: true });
-                      layers.file(fileName + '.shx', files.shx.buffer, { binary: true });
-                      layers.file(fileName + '.dbf', files.dbf.buffer, { binary: true });
-                      layers.file(fileName + '.prj', options.prj);
-                  });
-          }
-      });
+    Object.keys(gjCollections).forEach(function(gjKey) {
+        const gj = gjCollections[gjKey];
+
+        if (geojson.point(gj).geometries.length) throw new Error("point is not supported")
+        if (geojson.line(gj).geometries.length) throw new Error("line is not supported")
+
+        const gjPolygons = [geojson.polygon(gj)];
+        gjPolygons.forEach(function(l) {
+            if (l.geometries.length && l.geometries[0].length) {
+                write(
+                    // field definitions
+                    l.properties,
+                    // geometry type
+                    l.type,
+                    // geometries
+                    l.geometries,
+                    options.prj,
+                    function(err, files) {
+                        var fileName = gjKey;
+                        layers.file(fileName + '.shp', files.shp.buffer, { binary: true });
+                        layers.file(fileName + '.shx', files.shx.buffer, { binary: true });
+                        layers.file(fileName + '.dbf', files.dbf.buffer, { binary: true });
+                        layers.file(fileName + '.prj', options.prj);
+                    });
+            }
+        });
     });
 
     return zip.generateAsync({
