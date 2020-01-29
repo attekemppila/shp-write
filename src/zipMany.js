@@ -8,12 +8,12 @@ module.exports = function(gjCollections, options) {
         layers = zip.folder(options && options.folder ? options.folder : 'layers');
 
     Object.keys(gjCollections).forEach(function(gjKey) {
-        const gj = gjCollections[gjKey];
+        var gj = gjCollections[gjKey];
 
-        if (geojson.point(gj).geometries.length) throw new Error("point is not supported")
-        if (geojson.line(gj).geometries.length) throw new Error("line is not supported")
+        if (geojson.point(gj).geometries.length) throw new Error("point is not supported");
+        if (geojson.line(gj).geometries.length) throw new Error("line is not supported");
 
-        const gjPolygons = [geojson.polygon(gj)];
+        var gjPolygons = [geojson.polygon(gj)];
         gjPolygons.forEach(function(l) {
             if (l.geometries.length && l.geometries[0].length) {
                 write(
