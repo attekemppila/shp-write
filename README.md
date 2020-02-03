@@ -42,7 +42,7 @@ var options = {
         polygon: 'mypolygons',
         polyline: 'mylines'
     },
-    prj: 'wkt string' (required)
+    prj: 'wkt string' (required, but if null omitted)
 }
 // a GeoJSON bridge for features
 shpwrite.download({
@@ -100,7 +100,7 @@ var featureCollections = {
 var options = {
     file: 'myshapes'
     folder: 'myshapes',
-    prj: 'wkt string' (required)
+    prj: 'wkt string' (required, but if null omitted)
 }
 
 shpwrite.downloadMany(featureCollections, options);
