@@ -1,6 +1,6 @@
 var zipMany = require('./zipMany');
-var saveAs = require("file-saver").saveAs;
+var FileSaver = require("file-saver");
 
 module.exports = function(gjCollections, options) {
-    zipMany(gjCollections, options).then(function(blob) { saveAs(blob, options.file + '.zip'); });
+    return zipMany(gjCollections, options).then(function(blob) { return FileSaver.saveAs(blob, options.file + '.zip'); });
 };

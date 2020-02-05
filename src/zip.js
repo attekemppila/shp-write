@@ -23,7 +23,7 @@ module.exports = function(gj, options) {
                     layers.file(fileName + '.shp', files.shp.buffer, { binary: true });
                     layers.file(fileName + '.shx', files.shx.buffer, { binary: true });
                     layers.file(fileName + '.dbf', files.dbf.buffer, { binary: true });
-                    layers.file(fileName + '.prj', options.prj);
+                    if (options.prj !== null) layers.file(fileName + '.prj', options.prj);
                 });
         }
     });
