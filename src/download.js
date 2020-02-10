@@ -1,6 +1,6 @@
 var zip = require('./zip');
-var saveAs = require("file-saver").saveAs;
+var FileSaver = require("file-saver");
 
 module.exports = function(gj, options) {
-    zip(gj, options).then(function(blob) { saveAs(blob, options.file + '.zip'); });
+    return zip(gj, options).then(function(blob) { return FileSaver.saveAs(blob, options.file + '.zip'); });
 };

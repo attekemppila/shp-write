@@ -42,7 +42,7 @@ var options = {
         polygon: 'mypolygons',
         polyline: 'mylines'
     },
-    prj: 'wkt string' (required)
+    prj: 'wkt string' (required, but if null omitted)
 }
 // a GeoJSON bridge for features
 shpwrite.download({
@@ -75,10 +75,37 @@ shpwrite.download({
 
 ## API
 
-### `download(geojson)`
+### `download(geojson, options)`
 
 Given a [GeoJSON](http://geojson.org/) FeatureCollection as an object,
 converts convertible features into Shapefiles and triggers a download.
+
+### `downloadMany(geojsonCollections, options)`
+
+Given object of a [GeoJSON](http://geojson.org/) FeatureCollections,
+converts convertible features into Shapefiles and triggers a download.
+Supports only polygons.
+
+```js
+var featureCollections = {
+    "polygonLayer1": {
+        "type": "FeatureCollection",
+        "features": [...]
+    },
+    "polygonLayer2": {
+        "type": "FeatureCollection",
+        "features": [...]
+    }
+}
+var options = {
+    file: 'myshapes'
+    folder: 'myshapes',
+    prj: 'wkt string' (required, but if null omitted)
+}
+
+shpwrite.downloadMany(featureCollections, options);
+
+```
 
 ### `write(data, geometrytype, geometries, callback)`
 
